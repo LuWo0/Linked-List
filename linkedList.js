@@ -3,11 +3,78 @@ export class LinkedList{
         this.head = null;
         this.length = 0;
     }
+    //append(value) adds a new node containing value to the end of the list
+    append(value) {
+        const node = new Node(value, null);
+        if (this.head == null) {
+            this.head = node;
+            this.length++;
+            return this.head;
+        }
+        let current = this.head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = node;
+        this.length++;
+    }
     // prepend(value) adds a new node containing value to the start of the list
     prepend(value) {
         const node = new Node(value, this.head);
         this.head = node;
         this.length++;
+    }
+    //size returns the total number of nodes in the list
+    size() {
+        return this.length;
+    }
+    //getHead returns the first node in the list
+    getHead() {
+        if(this.head == null) return null;
+        return this.head;
+    }
+    //getTail returns the last node in the list
+    getTail() {
+        if(this.head == null) return null;
+        if(this.length === 1) return this.getHead();
+        
+        let current = this.head;
+        for (let i = 0; i < this.size() - 1; i++){
+            current = current.next;
+        }
+        return current;
+    }
+    //pop removes the last element from the list
+    pop() {
+        if(this.head == null) return null;
+        if(this.length === 1) {
+            this.head = this.head.next;
+            this.length--;
+        }
+        return this.removeAt(this.length - 1); 
+
+    }
+    //contains(value) returns true if the passed in value is in the list and otherwise returns false.
+    contains(value){
+        if (this.length === 0) return false;
+        let current = this.head;
+        while(current){
+            if(current.val === value) return true;
+            current = current.next;
+        }
+        return false;
+    }
+    // find(value) returns the index of the node containing value, or null if not found.
+    find(value){
+        if (this.length === 0) return null;
+        let index = 0;
+        let current = this.head;
+        while(current){
+            if (current.val === value) return index;
+            current = current.next;
+            index++;
+        }
+        return null;
     }
     //at(index) returns the node at the given index
     at(index){
@@ -41,7 +108,7 @@ export class LinkedList{
     }
     //removeAt(index) that removes the node at the given index.
     removeAt(index){
-        if (index === 0) {
+        if (index === 0) { //removes head
             this.head = this.head.next;
             this.length--;
         }

@@ -131,3 +131,127 @@ describe("#removeAt", () => {
         });
     });
 });
+
+describe("#append", () => {
+    test("adds a new node containing value to the end of the list", () => {
+        const ll = new LinkedList();
+        ll.append(10);
+        ll.append(20);
+
+        expect(ll.head.val).toBe(10);
+        expect(ll.length).toBe(2);        
+    });
+});
+
+describe("#size", () => {
+    test("returns the length of the list", () => {
+        const ll = LinkedList.fromValues(10, 20, 30, 40);
+        const ll2 = new LinkedList();
+        expect(ll.size()).toBe(4);
+        expect(ll2.size()).toBe(0);
+    });
+});
+
+describe("#getHead", () => {
+    describe("when the list is empty", () => {
+        test("returns null", () => {
+            const ll = new LinkedList();
+            expect(ll.getHead()).toBeNull();
+        });
+    });
+    describe("when there are elements in the list", () => {
+        test("returns the head of the list", () => {
+            const ll = LinkedList.fromValues(10, 20, 30, 40);
+            expect(ll.getHead().val).toBe(10);
+            ll.prepend(1);
+            expect(ll.getHead().val).toBe(1);
+        });
+    });
+});
+
+describe("#getTail", () => {
+    describe("when the list is empty", () => {
+        test("returns null", () => {
+            const ll = new LinkedList();
+            expect(ll.getTail()).toBeNull();
+        });
+    });
+    describe("when there are elements in the list", () => {
+        test("returns the head of the list", () => {
+            const ll = LinkedList.fromValues(10, 20, 30, 40);
+            expect(ll.getTail().val).toBe(40);
+            ll.append(1);
+            expect(ll.getTail().val).toBe(1);
+        });
+    });
+});
+
+describe("#pop", () => {
+    describe("when the list is empty", () => {
+        test("return null", () => {
+            const ll = new LinkedList();
+            expect(ll.pop()).toBeNull();
+        });
+    });
+
+    describe("when there is just one element in the list", () => {
+        test("check to see if the size of the list is 0", () => {
+            const ll = LinkedList.fromValues(10);
+            ll.pop();
+            expect(ll.length).toBe(0);
+        });
+    });
+
+    describe("when there are elements in the list", () => {
+            const ll = LinkedList.fromValues(10, 20, 30, 40);
+            ll.pop();
+            expect(ll.length).toBe(3);
+            expect(ll.getTail().val).toBe(30);
+    });
+});
+
+describe("#contains", () => {
+    describe("when the list is empty", () => {
+        test("returns false on an empty list", () => {
+            const ll = new LinkedList();
+            expect(ll.contains(10)).toBe(false);
+        });
+    });
+
+    describe("when the value is not in the list", () => {
+        test("returns false when the value is not found", () => {
+            const ll = LinkedList.fromValues(10, 20, 30, 40);
+            expect(ll.contains(2)).toBe(false);
+        });
+    });
+
+    describe("when the value is in the list", () => {
+        test("returns true when the value is found", () => {
+            const ll = LinkedList.fromValues(10, 20, 30, 40);
+            expect(ll.contains(30)).toBe(true);
+        });
+    });
+});
+
+describe("#find", () => {
+    describe("when the list is empty", () => {
+        test("returns null when there are no elements in the list", () => {
+            const ll = new LinkedList();
+            expect(ll.find(10)).toBeNull();
+        });
+    });
+
+    describe("when the value is not in the list", () => {
+        test("returns null when there are no indices that contain that value", () => {
+            const ll = LinkedList.fromValues(10, 20, 30, 40);
+            expect(ll.find(15)).toBeNull();
+        });
+    });
+
+    describe("when the value is in the list", () => {
+        test("returns the index of the value", () => {
+            const ll = LinkedList.fromValues(10, 20, 30, 40);
+            expect(ll.find(20)).toBe(1);
+        });
+    });
+});
